@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>SDLC Using AI</title>
+
+    <style>
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background: #f4f7fb;
+            color: #1e293b;
+        }
+
+        /* NAVBAR */
+
+        nav {
+            background: #0f172a;
+            color: white;
+            padding: 18px 7%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav h2 {
+            color: #60a5fa;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 20px;
+        }
+
+        nav a:hover {
+            color: #60a5fa;
+        }
+
+        /* HERO */
+
+        .hero {
+            background: linear-gradient(135deg, #172554, #2563eb);
+            color: white;
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        .hero h1 {
+            font-size: 45px;
+            margin-bottom: 15px;
+        }
+
+        .hero p {
+            font-size: 19px;
+            margin-bottom: 25px;
+        }
+
+        .hero button {
+            padding: 13px 25px;
+            border: none;
+            border-radius: 8px;
+            background: white;
+            color: #172554;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .hero button:hover {
+            background: #dbeafe;
+        }
+
+        /* COMMON */
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: auto;
+        }
+
+        section {
+            padding: 50px 0;
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .section-title h2 {
+            font-size: 32px;
+            color: #172554;
+        }
+
+        .section-title p {
+            margin-top: 10px;
+            color: #64748b;
+        }
+
+        /* ABOUT */
+
+        .about {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .about p {
+            line-height: 1.8;
+            font-size: 17px;
+        }
+
+        /* SEARCH */
+
+        .search-box {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .search-box input {
+            width: 80%;
+            max-width: 500px;
+            padding: 14px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        /* STAGES */
+
+        .stages {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .stage {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: 0.3s;
+            border-top: 5px solid #2563eb;
+        }
+
+        .stage:hover {
+            transform: translateY(-8px);
+        }
+
+        .stage-number {
+            width: 45px;
+            height: 45px;
+            background: #2563eb;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+
+        .stage h3 {
+            color: #172554;
+            margin-bottom: 10px;
+            font-size: 22px;
+        }
+
+        .stage p {
+            line-height: 1.6;
+            color: #475569;
+        }
+
+        .ai-box {
+            background: #eff6ff;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+
+        .ai-box strong {
+            color: #1d4ed8;
+        }
+
+        .stage button {
+            width: 100%;
+            margin-top: 15px;
+            padding: 11px;
+            background: #172554;
+            color: white;
+            border: none;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+
+        .stage button:hover {
+            background: #2563eb;
+        }
+
+        /* RESULT */
+
+        #result {
+            display: none;
+            margin-top: 35px;
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            border-left: 6px solid #2563eb;
+        }
+
+        #result h2 {
+            color: #172554;
+            margin-bottom: 15px;
+        }
+
+        #result p {
+            line-height: 1.8;
+        }
+
+        /* AI SECTION */
+
+        .ai-section {
+            background: #e0f2fe;
+        }
+
+        .ai-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+            gap: 20px;
+        }
+
+        .ai-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .ai-card h3 {
+            margin: 12px 0;
+            color: #172554;
+        }
+
+        .ai-icon {
+            font-size: 35px;
+        }
+
+        /* WORKFLOW */
+
+        .workflow {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .workflow-step {
+            background: #172554;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-weight: bold;
+        }
+
+        .arrow {
+            font-size: 25px;
+            color: #2563eb;
+        }
+
+        /* PROGRESS */
+
+        .progress-container {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 25px;
+            background: #e2e8f0;
+            border-radius: 20px;
+            overflow: hidden;
+            margin-top: 15px;
+        }
+
+        .progress {
+            width: 0%;
+            height: 100%;
+            background: #2563eb;
+            transition: 0.5s;
+        }
+
+        /* FOOTER */
+
+        footer {
+            background: #0f172a;
+            color: white;
+            text-align: center;
+            padding: 25px;
+            margin-top: 40px;
+        }
+
+        /* RESPONSIVE */
+
+        @media(max-width: 700px) {
+
+            nav {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            nav a {
+                margin: 5px;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .search-box input {
+                width: 100%;
+            }
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+
+<!-- NAVBAR -->
+
+<nav>
+
+    <h2>AI-SDLC</h2>
+
+    <div>
+        <a href="#home">Home</a>
+        <a href="#about">About</a>
+        <a href="#stages">Stages</a>
+        <a href="#ai">AI</a>
+    </div>
+
+</nav>
+
+
+<!-- HERO -->
+
+<section class="hero" id="home">
+
+    <h1>SDLC Using Artificial Intelligence</h1>
+
+    <p>
+        Software Development Life Cycle with AI Assistance
+    </p>
+
+    <button onclick="startSDLC()">
+        Start SDLC
+    </button>
+
+</section>
+
+
+<!-- ABOUT -->
+
+<section id="about">
+
+    <div class="container">
+
+        <div class="section-title">
+            <h2>What is SDLC?</h2>
+            <p>Software Development Life Cycle</p>
+        </div>
+
+        <div class="about">
+
+            <p>
+                SDLC stands for Software Development Life Cycle.
+                It is a systematic process used to develop,
+                test, deploy and maintain software.
+            </p>
+
+            <br>
+
+            <p>
+                Artificial Intelligence can assist developers
+                throughout the SDLC by helping with planning,
+                requirements, UI design, coding, testing,
+                deployment and maintenance.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- WORKFLOW -->
+
+<section>
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <h2>SDLC Workflow</h2>
+
+        </div>
+
+        <div class="workflow">
+
+            <div class="workflow-step">1. Planning</div>
+
+            <div class="arrow">→</div>
+
+            <div class="workflow-step">2. Requirements</div>
+
+            <div class="arrow">→</div>
+
+            <div class="workflow-step">3. Design</div>
+
+            <div class="arrow">→</div>
+
+            <div class="workflow-step">4. Development</div>
+
+            <div class="arrow">→</div>
+
+            <div class="workflow-step">5. Testing</div>
+
+            <div class="arrow">→</div>
+
+            <div class="workflow-step">6. Deployment</div>
+
+            <div class="arrow">→</div>
+
+            <div class="workflow-step">7. Maintenance</div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- SEARCH -->
+
+<section id="stages">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <h2>7 SDLC Stages</h2>
+
+            <p>
+                Select a stage to see how AI can assist
+            </p>
+
+        </div>
+
+        <div class="search-box">
+
+            <input
+                type="text"
+                id="search"
+                placeholder="Search SDLC stage..."
+                onkeyup="searchStages()"
+            >
+
+        </div>
+
+
+        <div class="stages" id="stageContainer">
+
+
+            <!-- STAGE 1 -->
+
+            <div class="stage">
+
+                <div class="stage-number">1</div>
+
+                <h3>Planning</h3>
+
+                <p>
+                    Define the project objective, scope,
+                    users, resources and timeline.
+                </p>
+
+                <div class="ai-box">
+
+                    <strong>AI Assistance</strong>
+
+                    <p>
+                        AI can generate project ideas,
+                        objectives, timelines and development plans.
+                    </p>
+
+                </div>
+
+                <button onclick="showStage(1)">
+                    View AI Output
+                </button>
+
+            </div>
+
+
+            <!-- STAGE 2 -->
+
+            <div class="stage">
+
+                <div class="stage-number">2</div>
+
+                <h3>Requirement Analysis</h3>
+
+                <p>
+                    Identify functional and non-functional
+                    requirements of the software.
+                </p>
+
+                <div class="ai-box">
+
+                    <strong>AI Assistance</strong>
+
+                    <p>
+                        AI can convert user requirements
+                        into structured requirements and checklists.
+                    </p>
+
+                </div>
+
+                <button onclick="showStage(2)">
+                    View AI Output
+                </button>
+
+            </div>
+
+
+            <!-- STAGE 3 -->
+
+            <div class="stage">
+
+                <div class="stage-number">3</div>
+
+                <h3>Design</h3>
+
+                <p>
+                    Design the user interface, navigation
+                    and overall system structure.
+                </p>
+
+                <div class="ai-box">
+
+                    <strong>AI Assistance</strong>
+
+                    <p>
+                        AI can suggest UI layouts, color
+                        combinations and user flows.
+                    </p>
+
+                </div>
+
+                <button onclick="showStage(3)">
+                    View AI Output
+                </button>
+
+            </div>
+
+
+            <!-- STAGE 4 -->
+
+            <div class="stage">
+
+                <div class="stage-number">4</div>
+
+                <h3>Development</h3>
+
+                <p>
+                    Convert the design and requirements
+                    into working software code.
+                </p>
+
+                <div class="ai-box">
+
+                    <strong>AI Assistance</strong>
+
+                    <p>
+                        AI can generate HTML, CSS and JavaScript,
+                        explain code and help debug errors.
+                    </p>
+
+                </div>
+
+                <button onclick="showStage(4)">
+                    View AI Output
+                </button>
+
+            </div>
+
+
+            <!-- STAGE 5 -->
+
+            <div class="stage">
+
+                <div class="stage-number">5</div>
+
+                <h3>Testing</h3>
+
+                <p>
+                    Test the application and identify
+                    errors and unexpected behavior.
+                </p>
+
+                <div class="ai-box">
+
+                    <strong>AI Assistance</strong>
+
+                    <p>
+                        AI can generate test cases,
+                        identify bugs and suggest fixes.
+                    </p>
+
+                </div>
+
+                <button onclick="showStage(5)">
+                    View AI Output
+                </button>
+
+            </div>
+
+
+            <!-- STAGE 6 -->
+
+            <div class="stage">
+
+                <div class="stage-number">6</div>
+
+                <h3>Deployment</h3>
+
+                <p>
+                    Make the completed application
+                    available for users.
+                </p>
+
+                <div class="ai-box">
+
+                    <strong>AI Assistance</strong>
+
+                    <p>
+                        AI can provide deployment guidance
+                        and help troubleshoot hosting problems.
+                    </p>
+
+                </div>
+
+                <button onclick="showStage(6)">
+                    View AI Output
+                </button>
+
+            </div>
+
+
+            <!-- STAGE 7 -->
+
+            <div class="stage">
+
+                <div class="stage-number">7</div>
+
+                <h3>Maintenance</h3>
+
+                <p>
+                    Monitor, update and improve the
+                    software after deployment.
+                </p>
+
+                <div class="ai-box">
+
+                    <strong>AI Assistance</strong>
+
+                    <p>
+                        AI can analyze bugs, suggest improvements
+                        and help add new features.
+                    </p>
+
+                </div>
+
+                <button onclick="showStage(7)">
+                    View AI Output
+                </button>
+
+            </div>
+
+
+        </div>
+
+
+        <!-- RESULT -->
+
+        <div id="result">
+
+            <h2 id="resultTitle"></h2>
+
+            <p id="resultText"></p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- AI SECTION -->
+
+<section class="ai-section" id="ai">
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <h2>How AI Helps in SDLC</h2>
+
+            <p>
+                AI can support developers at different stages
+            </p>
+
+        </div>
+
+
+        <div class="ai-grid">
+
+            <div class="ai-card">
+
+                <div class="ai-icon">💡</div>
+
+                <h3>Planning</h3>
+
+                <p>
+                    Generate ideas and project plans.
+                </p>
+
+            </div>
+
+
+            <div class="ai-card">
+
+                <div class="ai-icon">📋</div>
+
+                <h3>Requirements</h3>
+
+                <p>
+                    Analyze and organize requirements.
+                </p>
+
+            </div>
+
+
+            <div class="ai-card">
+
+                <div class="ai-icon">🎨</div>
+
+                <h3>Design</h3>
+
+                <p>
+                    Suggest UI and user experience ideas.
+                </p>
+
+            </div>
+
+
+            <div class="ai-card">
+
+                <div class="ai-icon">💻</div>
+
+                <h3>Coding</h3>
+
+                <p>
+                    Generate and explain code.
+                </p>
+
+            </div>
+
+
+            <div class="ai-card">
+
+                <div class="ai-icon">🧪</div>
+
+                <h3>Testing</h3>
+
+                <p>
+                    Generate test cases and identify bugs.
+                </p>
+
+            </div>
+
+
+            <div class="ai-card">
+
+                <div class="ai-icon">🚀</div>
+
+                <h3>Deployment</h3>
+
+                <p>
+                    Provide deployment guidance.
+                </p>
+
+            </div>
+
+
+            <div class="ai-card">
+
+                <div class="ai-icon">🔧</div>
+
+                <h3>Maintenance</h3>
+
+                <p>
+                    Suggest updates and improvements.
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- PROGRESS -->
+
+<section>
+
+    <div class="container">
+
+        <div class="section-title">
+
+            <h2>SDLC Progress</h2>
+
+            <p>
+                Click "Start SDLC" to simulate the development process.
+            </p>
+
+        </div>
+
+        <div class="progress-container">
+
+            <h3 id="progressText">
+                0% Completed
+            </h3>
+
+            <div class="progress-bar">
+
+                <div
+                    class="progress"
+                    id="progress">
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+    <p>
+        SDLC Using AI
+    </p>
+
+    <p>
+        HTML + CSS + JavaScript
+    </p>
+
+</footer>
+
+
+<script>
+
+
+/* ================================
+   STAGE INFORMATION
+================================ */
+
+const stageData = {
+
+    1: {
+        title: "Stage 1 - Planning",
+        text:
+        "AI helps the development team define the project objective, identify users, estimate resources, create a timeline and organize the overall development plan."
+    },
+
+    2: {
+        title: "Stage 2 - Requirement Analysis",
+        text:
+        "AI can analyze user requirements and organize them into functional requirements, non-functional requirements, user stories and feature checklists."
+    },
+
+    3: {
+        title: "Stage 3 - Design",
+        text:
+        "AI can assist in creating UI layouts, navigation structures, wireframe ideas, responsive design suggestions, color combinations and user experience improvements."
+    },
+
+    4: {
+        title: "Stage 4 - Development",
+        text:
+        "AI can assist developers by generating HTML, CSS and JavaScript code, explaining programming concepts, detecting coding errors and suggesting improvements."
+    },
+
+    5: {
+        title: "Stage 5 - Testing",
+        text:
+        "AI can generate test cases, analyze possible errors, identify bugs and suggest corrections. Developers should still verify the results through actual testing."
+    },
+
+    6: {
+        title: "Stage 6 - Deployment",
+        text:
+        "AI can guide developers through deployment steps, configuration, hosting setup and troubleshooting. The application can be deployed using platforms such as GitHub Pages."
+    },
+
+    7: {
+        title: "Stage 7 - Maintenance",
+        text:
+        "After deployment, AI can help analyze reported problems, explain errors, suggest performance improvements and assist developers when adding new features."
+    }
+
+};
+
+
+/* ================================
+   SHOW STAGE
+================================ */
+
+function showStage(number) {
+
+    const result = document.getElementById("result");
+
+    document.getElementById("resultTitle").innerText =
+        stageData[number].title;
+
+    document.getElementById("resultText").innerText =
+        stageData[number].text;
+
+    result.style.display = "block";
+
+    result.scrollIntoView({
+        behavior: "smooth"
+    });
+
+}
+
+
+/* ================================
+   SEARCH STAGES
+================================ */
+
+function searchStages() {
+
+    const input =
+        document.getElementById("search")
+        .value
+        .toLowerCase();
+
+    const stages =
+        document.querySelectorAll(".stage");
+
+    stages.forEach(function(stage) {
+
+        const text =
+            stage.innerText.toLowerCase();
+
+        if (text.includes(input)) {
+
+            stage.style.display = "block";
+
+        } else {
+
+            stage.style.display = "none";
+
+        }
+
+    });
+
+}
+
+
+/* ================================
+   START SDLC
+================================ */
+
+function startSDLC() {
+
+    const progress =
+        document.getElementById("progress");
+
+    const progressText =
+        document.getElementById("progressText");
+
+    let value = 0;
+
+    progress.style.width = "0%";
+
+    progressText.innerText =
+        "0% Completed";
+
+    const timer =
+        setInterval(function() {
+
+            value += 1;
+
+            progress.style.width =
+                value + "%";
+
+            progressText.innerText =
+                value + "% Completed";
+
+            if (value >= 100) {
+
+                clearInterval(timer);
+
+                progressText.innerText =
+                    "SDLC Process Completed ✓";
+
+            }
+
+        }, 30);
+
+}
+
+
+/* ================================
+   WELCOME MESSAGE
+================================ */
+
+window.onload = function() {
+
+    console.log(
+        "AI-SDLC Application Loaded Successfully"
+    );
+
+};
+
+
+</script>
+
+</body>
+</html>
